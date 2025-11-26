@@ -15,7 +15,7 @@ function App() {
 
       </div>
       <p className="read-the-docs">
-        About me and my projects and a pipeline test
+        About me and my projects
       </p>
     </>
   )
