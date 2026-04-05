@@ -12,9 +12,10 @@ interface TaskbarProps {
   activeWindowId: string | null;
   onWindowClick: (id: string) => void;
   onStartMenuAction: (id: string, type: 'pdf' | 'notepad' | 'game' | 'about', title: string, icon: string | React.ReactNode, data?: any) => void;
+  onShutDown: () => void;
 }
 
-export const Taskbar: React.FC<TaskbarProps> = ({ openWindows, activeWindowId, onWindowClick, onStartMenuAction }) => {
+export const Taskbar: React.FC<TaskbarProps> = ({ openWindows, activeWindowId, onWindowClick, onStartMenuAction, onShutDown }) => {
   const [time, setTime] = useState(new Date());
   const [isStartOpen, setIsStartOpen] = useState(false);
   const startMenuRef = useRef<HTMLDivElement>(null);
@@ -126,9 +127,7 @@ export const Taskbar: React.FC<TaskbarProps> = ({ openWindows, activeWindowId, o
              <button 
                onClick={() => {
                  setIsStartOpen(false);
-                 alert("It is now safe to turn off your device. Please close the browser tab.");
-                 // fallback if browser allows
-                 window.close();
+                 onShutDown();
                }}
                style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', color: '#000' }}>
                <img src={shutDownPng} style={{ width: 24, height: 24 }} alt="" /> Shut Down...
