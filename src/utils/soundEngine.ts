@@ -87,6 +87,30 @@ class SoundEngine {
       }, i * 150);
     });
   }
+
+  public gameWon() {
+    if (!this.isEnabled || !this.audioCtx) return;
+    
+    // Longer 8-bit success fanfare
+    const notes = [
+      523.25, // C5
+      659.25, // E5
+      783.99, // G5
+      1046.50, // C6
+      783.99, // G5
+      1046.50, // C6
+      1318.51, // E6
+      1046.50, // C6
+      1567.98  // G6
+    ];
+    
+    notes.forEach((freq, i) => {
+      setTimeout(() => {
+        const duration = (i === notes.length - 1) ? 0.6 : 0.12; 
+        this.playTone(freq, 'square', duration, 0.1);
+      }, i * 120);
+    });
+  }
 }
 
 export const sound = new SoundEngine();

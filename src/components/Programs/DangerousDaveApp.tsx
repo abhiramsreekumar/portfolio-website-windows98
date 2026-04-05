@@ -8,7 +8,11 @@ import { gameLevels } from '../../data/levels';
 import { useGameEngine } from '../../hooks/useGameEngine';
 import { resumeData } from '../../data/resume';
 
-export const DangerousDaveApp: React.FC = () => {
+interface DangerousDaveAppProps {
+  onClose?: () => void;
+}
+
+export const DangerousDaveApp: React.FC<DangerousDaveAppProps> = ({ onClose }) => {
   const SECTIONS = ['ABOUT', 'EXPERIENCE', 'PROJECTS', 'SKILLS'];
 
   const [levelIndex, setLevelIndex] = useState(0);
@@ -17,6 +21,7 @@ export const DangerousDaveApp: React.FC = () => {
   
   const [showContent, setShowContent] = useState(true);
   const [isDeadDialog, setIsDeadDialog] = useState(false);
+  const [isWon, setIsWon] = useState(false);
   
   // Responsive aspect scaling
   const containerRef = useRef<HTMLDivElement>(null);
@@ -47,7 +52,7 @@ export const DangerousDaveApp: React.FC = () => {
     currentLevel.platforms,
     currentLevel.hazards,
     currentLevel.door,
-    !showContent && !isDeadDialog
+    !showContent && !isDeadDialog && !isWon
   );
 
   useEffect(() => {
@@ -60,15 +65,19 @@ export const DangerousDaveApp: React.FC = () => {
 
   useEffect(() => {
     if (player.doorReached) {
-      sound.levelClear();
-      setScore(prev => prev + 1000);
-      
-      let nextIndex = levelIndex + 1;
-      if (nextIndex >= SECTIONS.length) {
-         nextIndex = 0;
+      if (levelIndex === SECTIONS.length - 1) {
+        sound.gameWon();
+        setScore(prev => prev + 5000);
+        setIsWon(true);
+        resetPlayer();
+      } else {
+        sound.levelClear();
+        setScore(prev => prev + 1000);
+        
+        let nextIndex = levelIndex + 1;
+        setLevelIndex(nextIndex);
+        resetPlayer();
       }
-      setLevelIndex(nextIndex);
-      resetPlayer();
     }
   }, [player.doorReached, levelIndex, resetPlayer, SECTIONS.length]);
 
@@ -182,6 +191,59 @@ export const DangerousDaveApp: React.FC = () => {
   };
 
   const renderContent = () => {
+    if (isWon) {
+      return (
+        <div style={{
+          backgroundColor: 'var(--ega-blue)',
+          border: '4px double var(--ega-white)',
+          padding: '30px',
+          color: 'var(--ega-white)',
+          boxShadow: '8px 8px 0px rgba(0,0,0,0.8)',
+          textAlign: 'center',
+          pointerEvents: 'auto',
+          zIndex: 10000 
+        }}>
+          <h2 style={{ color: 'var(--ega-yellow)', fontSize: '24px', margin: '0 0 20px 0' }}>*** YOU WON! ***</h2>
+          <p style={{ fontSize: '16px', marginBottom: '30px' }}>You now know about abhiram</p>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', alignItems: 'center' }}>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setLevelIndex(0);
+                setScore(0);
+                setIsWon(false);
+                resetPlayer();
+              }}
+              style={{ padding: '10px 20px', width: '250px', backgroundColor: 'var(--ega-black)', color: 'var(--ega-light-green)', border: '2px solid var(--ega-white)', cursor: 'pointer' }}
+            >
+              RESTART GAME
+            </button>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open('/resume.pdf', '_blank');
+              }}
+              style={{ padding: '10px 20px', width: '250px', backgroundColor: 'var(--ega-black)', color: 'var(--ega-light-cyan)', border: '2px solid var(--ega-white)', cursor: 'pointer' }}
+            >
+              DOWNLOAD RESUME
+            </button>
+            {onClose && (
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClose();
+                }}
+                style={{ padding: '10px 20px', width: '250px', backgroundColor: 'var(--ega-black)', color: 'var(--ega-light-red)', border: '2px solid var(--ega-white)', cursor: 'pointer' }}
+              >
+                CLOSE
+              </button>
+            )}
+          </div>
+        </div>
+      );
+    }
+
     if (isDeadDialog) {
       return (
         <DialogBox title="YOU DIED" onNext={handleRespawn} nextText="[ ENTER ] TO RESPAWN">
@@ -250,7 +312,7 @@ export const DangerousDaveApp: React.FC = () => {
       </div>
 
       {/* Mobile Controls Overlay (Unscaled) */}
-      {isTouchDevice && !showContent && !isDeadDialog && (
+      {isTouchDevice && !showContent && !isDeadDialog && !isWon && (
         <div style={{
           position: 'absolute',
           bottom: '20px',
