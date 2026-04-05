@@ -74,12 +74,32 @@ export const Taskbar: React.FC<TaskbarProps> = ({ openWindows, activeWindowId, o
              <button 
                onClick={() => handleStartApp('resume-pdf', 'pdf', 'Internet Explorer - Resume', '🌐')}
                style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
-               🌐 Internet Explorer
+               🌐 Resume
              </button>
              <button 
                onClick={() => handleStartApp('dave-exe', 'game', 'Dangerous Dave Engine', '👾')}
                style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
-               👾 Dave Engine
+               👾 Dangerous Dave
+             </button>
+             <button 
+               onClick={() => handleStartApp('exp-txt', 'notepad', 'Experience.txt - Notepad', '📝')}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
+               📝 Experience
+             </button>
+             <button 
+               onClick={() => handleStartApp('skills-txt', 'notepad', 'Skills.txt - Notepad', '📝')}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
+               📝 Skills
+             </button>
+             <button 
+               onClick={() => handleStartApp('edu-txt', 'notepad', 'Education.txt - Notepad', '📝')}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
+               📝 Education
+             </button>
+             <button 
+               onClick={() => handleStartApp('certs-txt', 'notepad', 'Certifications.txt - Notepad', '📝')}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
+               📝 Certifications
              </button>
              <hr style={{ width: '90%', borderTop: '1px solid #808080', borderBottom: '1px solid #FFFFFF' }} />
              <div style={{ padding: '5px 10px', color: '#808080' }}>Shut Down...</div>

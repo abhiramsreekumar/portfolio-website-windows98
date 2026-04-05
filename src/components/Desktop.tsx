@@ -30,9 +30,17 @@ export const Desktop: React.FC = () => {
       return;
     }
     
+    let windowData = data;
+    if (!windowData && type === 'notepad') {
+      if (id === 'certs-txt') windowData = getCertsTxt();
+      else if (id === 'exp-txt') windowData = getExperienceTxt();
+      else if (id === 'skills-txt') windowData = getSkillsTxt();
+      else if (id === 'edu-txt') windowData = getEducationTxt();
+    }
+
     const newZ = highestZIndex + 1;
     setHighestZIndex(newZ);
-    setWindows([...windows, { id, type, title, icon, zIndex: newZ, data }]);
+    setWindows([...windows, { id, type, title, icon, zIndex: newZ, data: windowData }]);
     setActiveWindowId(id);
   };
 
@@ -93,7 +101,7 @@ export const Desktop: React.FC = () => {
         alignContent: 'flex-start'
       }}>
         <DesktopIcon 
-          id="resume-pdf" label="Resume.pdf" icon="📄" 
+          id="resume-pdf" label="Resume" icon="🌐" 
           onDoubleClick={() => openWindow('resume-pdf', 'pdf', 'Internet Explorer - Resume', '🌐')} 
         />
         <DesktopIcon 
