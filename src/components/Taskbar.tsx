@@ -6,7 +6,7 @@ interface TaskbarProps {
   openWindows: { id: string; title: string; icon?: string }[];
   activeWindowId: string | null;
   onWindowClick: (id: string) => void;
-  onStartMenuAction: (id: string, type: 'pdf' | 'notepad' | 'game', title: string, icon: string, data?: any) => void;
+  onStartMenuAction: (id: string, type: 'pdf' | 'notepad' | 'game' | 'about', title: string, icon: string, data?: any) => void;
 }
 
 export const Taskbar: React.FC<TaskbarProps> = ({ openWindows, activeWindowId, onWindowClick, onStartMenuAction }) => {
@@ -33,7 +33,7 @@ export const Taskbar: React.FC<TaskbarProps> = ({ openWindows, activeWindowId, o
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isStartOpen]);
 
-  const handleStartApp = (id: string, type: 'pdf' | 'notepad' | 'game', title: string, icon: string, data?: any) => {
+  const handleStartApp = (id: string, type: 'pdf' | 'notepad' | 'game' | 'about', title: string, icon: string, data?: any) => {
     setIsStartOpen(false);
     onStartMenuAction(id, type, title, icon, data);
   };
@@ -111,6 +111,11 @@ export const Taskbar: React.FC<TaskbarProps> = ({ openWindows, activeWindowId, o
                onClick={() => window.open(`https://${resumeData.about.github}`, '_blank')}
                style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
                🌐 GitHub
+             </button>
+             <button 
+               onClick={() => handleStartApp('about-sys', 'about', 'System Properties', 'ℹ️')}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
+               ℹ️ About System
              </button>
              <hr style={{ width: '90%', borderTop: '1px solid #808080', borderBottom: '1px solid #FFFFFF' }} />
              <div style={{ padding: '5px 10px', color: '#808080' }}>Shut Down...</div>

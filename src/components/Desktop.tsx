@@ -6,11 +6,12 @@ import { Taskbar } from './Taskbar';
 import { Notepad } from './Programs/Notepad';
 import { InternetExplorer } from './Programs/InternetExplorer';
 import { DangerousDaveApp } from './Programs/DangerousDaveApp';
+import { AboutSystem } from './Programs/AboutSystem';
 import { resumeData } from '../data/resume';
 
 interface WindowState {
   id: string;
-  type: 'pdf' | 'notepad' | 'game';
+  type: 'pdf' | 'notepad' | 'game' | 'about';
   title: string;
   icon: string;
   zIndex: number;
@@ -22,7 +23,7 @@ export const Desktop: React.FC = () => {
   const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
   const [highestZIndex, setHighestZIndex] = useState(10);
 
-  const openWindow = (id: string, type: 'pdf' | 'notepad' | 'game', title: string, icon: string, data?: any) => {
+  const openWindow = (id: string, type: 'pdf' | 'notepad' | 'game' | 'about', title: string, icon: string, data?: any) => {
     // Check if already open
     const existing = windows.find(w => w.id === id);
     if (existing) {
@@ -142,6 +143,7 @@ export const Desktop: React.FC = () => {
           {w.type === 'pdf' && <InternetExplorer />}
           {w.type === 'notepad' && <Notepad content={w.data} />}
           {w.type === 'game' && <DangerousDaveApp />}
+          {w.type === 'about' && <AboutSystem />}
         </WindowFrame>
       ))}
 
