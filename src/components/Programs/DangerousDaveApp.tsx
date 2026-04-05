@@ -68,7 +68,6 @@ export const DangerousDaveApp: React.FC = () => {
          nextIndex = 0;
       }
       setLevelIndex(nextIndex);
-      setShowContent(true);
       resetPlayer();
     }
   }, [player.doorReached, levelIndex, resetPlayer, SECTIONS.length]);
@@ -99,6 +98,86 @@ export const DangerousDaveApp: React.FC = () => {
     window.dispatchEvent(event);
   };
 
+  const BackgroundContent = () => {
+    const currentSection = SECTIONS[levelIndex];
+
+    const containerStyle: React.CSSProperties = {
+      position: 'absolute',
+      top: '40px', left: '20px', right: '20px', bottom: '80px',
+      zIndex: 5,
+      opacity: 0.25,
+      color: '#FFFFFF',
+      fontFamily: "'MS Sans Serif', Tahoma, sans-serif",
+      pointerEvents: 'none',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      textAlign: 'center',
+      paddingTop: '40px'
+    };
+
+    if (currentSection === 'ABOUT') {
+      return (
+        <div style={containerStyle}>
+          <h1 style={{ fontSize: '64px', color: 'var(--ega-light-cyan)', margin: '0 0 10px 0' }}>ABOUT ME</h1>
+          <p style={{ fontSize: '28px', margin: '5px 0' }}>{resumeData.about.name}</p>
+          <p style={{ fontSize: '24px', margin: '5px 0', color: 'var(--ega-yellow)' }}>{resumeData.about.title}</p>
+          <p style={{ fontSize: '20px', maxWidth: '800px', marginTop: '20px', lineHeight: '1.5' }}>{resumeData.about.summary}</p>
+        </div>
+      );
+    }
+
+    if (currentSection === 'EXPERIENCE') {
+      return (
+        <div style={containerStyle}>
+          <h1 style={{ fontSize: '64px', color: 'var(--ega-light-green)', margin: '0 0 30px 0' }}>EXPERIENCE</h1>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {resumeData.experience.slice(0, 3).map((exp, idx) => (
+              <div key={idx} style={{ border: '2px dashed var(--ega-light-green)', padding: '15px', width: '250px', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                <h3 style={{ fontSize: '20px', color: 'var(--ega-yellow)', margin: '0 0 10px 0' }}>{exp.company}</h3>
+                <p style={{ fontSize: '14px', margin: '0', color: 'var(--ega-white)' }}>{exp.role}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (currentSection === 'PROJECTS') {
+      return (
+        <div style={containerStyle}>
+          <h1 style={{ fontSize: '64px', color: 'var(--ega-light-magenta)', margin: '0 0 30px 0' }}>PROJECTS</h1>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {resumeData.projects.slice(0, 3).map((proj, idx) => (
+              <div key={idx} style={{ width: '250px', border: '2px dashed var(--ega-light-magenta)', backgroundColor: 'rgba(0,0,0,0.5)', padding: '15px' }}>
+                <h3 style={{ fontSize: '20px', color: 'var(--ega-white)', margin: '0 0 10px 0' }}>{proj.name}</h3>
+                <p style={{ fontSize: '14px', margin: '0', color: 'var(--ega-light-cyan)' }}>{proj.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (currentSection === 'SKILLS') {
+      return (
+        <div style={containerStyle}>
+          <h1 style={{ fontSize: '64px', color: 'var(--ega-yellow)', margin: '0 0 20px 0' }}>SKILLS & CERTS</h1>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center', maxWidth: '800px' }}>
+             {[...resumeData.skills.languages, ...resumeData.skills.tools, ...resumeData.skills.cloud].map((skill, i) => (
+                <span key={i} style={{ border: '1px solid var(--ega-white)', padding: '8px 12px', fontSize: '18px' }}>{skill}</span>
+             ))}
+          </div>
+          <p style={{ fontSize: '24px', color: 'var(--ega-light-cyan)', marginTop: '40px' }}>{resumeData.education.degree}</p>
+          <p style={{ fontSize: '20px', color: 'var(--ega-white)', marginTop: '10px' }}>{resumeData.education.university}</p>
+        </div>
+      );
+    }
+    
+    return null;
+  };
+
   const renderContent = () => {
     if (isDeadDialog) {
       return (
@@ -109,89 +188,18 @@ export const DangerousDaveApp: React.FC = () => {
       );
     }
 
-    if (!showContent) return null;
-
-    const currentSection = SECTIONS[levelIndex];
-
-    if (currentSection === 'ABOUT') {
+    if (showContent) {
       return (
-        <DialogBox title="LEVEL 01: ABOUT ME" onNext={handleStartPlaying} nextText="[ ENTER ] TO START LEVEL">
-          <p>NAME: <span className="blink">_</span> {resumeData.about.name}</p>
-          <p>TITLE: {resumeData.about.title}</p>
-          <p>LOCATION: {resumeData.about.location}</p>
+        <DialogBox title="DANGEROUS DAVE" onNext={handleStartPlaying} nextText="[ ENTER ] TO START GAME">
+          <h2 style={{ textAlign: 'center', color: 'var(--ega-light-green)', margin: '10px 0' }}>PORTFOLIO EDITION</h2>
+          <p style={{ textAlign: 'center' }}>Play through the levels to view my resume.</p>
           <br/>
-          <p>{resumeData.about.summary}</p>
-          <br/>
-          <p>EMAIL: {resumeData.about.email}</p>
-          <p>LINKEDIN: {resumeData.about.linkedin}</p>
-          <p>GITHUB: {resumeData.about.github}</p>
-          <br/>
-          <p style={{ color: 'var(--ega-light-green)' }}>CONTROLS: Use Left/Right arrows to walk, Up or Space to jump.</p>
+          <p style={{ color: 'var(--ega-light-cyan)', textAlign: 'center' }}>CONTROLS: Left/Right arrows to walk, Up or Space to jump.</p>
         </DialogBox>
       );
     }
 
-    if (currentSection === 'EXPERIENCE') {
-      return (
-        <DialogBox title="LEVEL 02: EXPERIENCE" onNext={handleStartPlaying} nextText="[ ENTER ] TO START LEVEL">
-          <div style={{ maxHeight: '20vh', overflowY: 'auto', paddingRight: '10px' }}>
-            {resumeData.experience.map((exp, idx) => (
-              <div key={idx} className="exp-card">
-                <h3 style={{ color: 'var(--ega-light-green)', margin: '0 0 5px 0' }}>{exp.company}</h3>
-                <p style={{ color: 'var(--ega-light-cyan)', margin: '0 0 10px 0' }}>{exp.role} | {exp.period}</p>
-                <ul style={{ paddingLeft: '20px', listStyleType: 'square' }}>
-                  {exp.bullets.map((b, i) => <li key={i} style={{ marginBottom: '5px' }}>{b}</li>)}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </DialogBox>
-      );
-    }
-
-    if (currentSection === 'PROJECTS') {
-      return (
-        <DialogBox title="LEVEL 03: PROJECTS" onNext={handleStartPlaying} nextText="[ ENTER ] TO START LEVEL">
-          <div style={{ maxHeight: '20vh', overflowY: 'auto', paddingRight: '10px' }}>
-            {resumeData.projects.map((proj, idx) => (
-              <div key={idx} className="project-card">
-                <h3 style={{ color: 'var(--ega-light-magenta)' }}>{proj.name}</h3>
-                <p><a href={"https://" + proj.link} target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }}>{proj.link}</a></p>
-                <br/>
-                <p>{proj.description}</p>
-              </div>
-            ))}
-          </div>
-        </DialogBox>
-      );
-    }
-
-    if (currentSection === 'SKILLS') {
-      return (
-        <DialogBox title="LEVEL 04: SKILLS & CERTS" onNext={handleStartPlaying} nextText="[ ENTER ] TO START LEVEL">
-          <div style={{ maxHeight: '20vh', overflowY: 'auto', paddingRight: '10px' }}>
-            <h3 style={{ color: 'var(--ega-yellow)' }}>TECH STACK:</h3>
-            <div>
-              {[...resumeData.skills.languages, ...resumeData.skills.tools, ...resumeData.skills.cloud].map((skill, i) => (
-                <span key={i} className="skill-tag">{skill}</span>
-              ))}
-            </div>
-            <br/>
-            <h3 style={{ color: 'var(--ega-yellow)' }}>CERTIFICATIONS:</h3>
-            {resumeData.certifications.map((cert, i) => (
-              <div key={i} className="certification">
-                <p>{cert}</p>
-              </div>
-            ))}
-            <br/>
-            <h3 style={{ color: 'var(--ega-yellow)' }}>EDUCATION:</h3>
-            <p>{resumeData.education.degree}</p>
-            <p>{resumeData.education.university}</p>
-            <p>{resumeData.education.period}</p>
-          </div>
-        </DialogBox>
-      );
-    }
+    return null;
   };
 
   // Internal listener for enter key
@@ -221,6 +229,8 @@ export const DangerousDaveApp: React.FC = () => {
           onToggleSound={handleToggleSound} 
         />
         
+        {BackgroundContent()}
+
         <Level levelData={currentLevel} />
         
         <Dave 
