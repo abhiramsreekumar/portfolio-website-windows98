@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import startIcon from '../assets/start.png';
+import { resumeData } from '../data/resume';
 
 interface TaskbarProps {
   openWindows: { id: string; title: string; icon?: string }[];
@@ -100,6 +101,16 @@ export const Taskbar: React.FC<TaskbarProps> = ({ openWindows, activeWindowId, o
                onClick={() => handleStartApp('certs-txt', 'notepad', 'Certifications.txt - Notepad', '📝')}
                style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
                📝 Certifications
+             </button>
+             <button 
+               onClick={() => window.open(`https://${resumeData.about.linkedin}`, '_blank')}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
+               🌐 LinkedIn
+             </button>
+             <button 
+               onClick={() => window.open(`https://${resumeData.about.github}`, '_blank')}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
+               🌐 GitHub
              </button>
              <hr style={{ width: '90%', borderTop: '1px solid #808080', borderBottom: '1px solid #FFFFFF' }} />
              <div style={{ padding: '5px 10px', color: '#808080' }}>Shut Down...</div>
