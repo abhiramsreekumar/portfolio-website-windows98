@@ -8,12 +8,15 @@ import { InternetExplorer } from './Programs/InternetExplorer';
 import { DangerousDaveApp } from './Programs/DangerousDaveApp';
 import { AboutSystem } from './Programs/AboutSystem';
 import { resumeData } from '../data/resume';
+import notepadPng from '../assets/notepad-5.png';
+import pdfPng from '../assets/ie-pdf.png';
+import recyclePng from '../assets/recycle-bin.png';
 
 interface WindowState {
   id: string;
   type: 'pdf' | 'notepad' | 'game' | 'about';
   title: string;
-  icon: string;
+  icon: string | React.ReactNode;
   zIndex: number;
   data?: any;
 }
@@ -23,7 +26,7 @@ export const Desktop: React.FC = () => {
   const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
   const [highestZIndex, setHighestZIndex] = useState(10);
 
-  const openWindow = (id: string, type: 'pdf' | 'notepad' | 'game' | 'about', title: string, icon: string, data?: any) => {
+  const openWindow = (id: string, type: 'pdf' | 'notepad' | 'game' | 'about', title: string, icon: string | React.ReactNode, data?: any) => {
     // Check if already open
     const existing = windows.find(w => w.id === id);
     if (existing) {
@@ -102,24 +105,28 @@ export const Desktop: React.FC = () => {
         alignContent: 'flex-start'
       }}>
         <DesktopIcon 
-          id="resume-pdf" label="Resume" icon="🌐" 
-          onDoubleClick={() => openWindow('resume-pdf', 'pdf', 'Internet Explorer - Resume', '🌐')} 
+          id="recycle-bin" label="Recycle Bin" icon={<img src={recyclePng} style={{width: 32, height: 32, pointerEvents: 'none'}} alt="Recycle Bin" />} 
+          onDoubleClick={() => {}} 
         />
         <DesktopIcon 
-          id="exp-txt" label="Experience.txt" icon="📝" 
-          onDoubleClick={() => openWindow('exp-txt', 'notepad', 'Experience.txt - Notepad', '📝', getExperienceTxt())} 
+          id="resume-pdf" label="Resume" icon={<img src={pdfPng} style={{width: 32, height: 32, pointerEvents: 'none'}} alt="Resume" />} 
+          onDoubleClick={() => openWindow('resume-pdf', 'pdf', 'Internet Explorer - Resume', <img src={pdfPng} style={{width:16, height:16}} alt="" />)} 
         />
         <DesktopIcon 
-          id="skills-txt" label="Skills.txt" icon="📝" 
-          onDoubleClick={() => openWindow('skills-txt', 'notepad', 'Skills.txt - Notepad', '📝', getSkillsTxt())} 
+          id="exp-txt" label="Experience.txt" icon={<img src={notepadPng} style={{width: 32, height: 32, pointerEvents: 'none'}} alt="Notepad" />} 
+          onDoubleClick={() => openWindow('exp-txt', 'notepad', 'Experience.txt - Notepad', <img src={notepadPng} style={{width:16, height:16}} alt="" />, getExperienceTxt())} 
         />
         <DesktopIcon 
-          id="edu-txt" label="Education.txt" icon="📝" 
-          onDoubleClick={() => openWindow('edu-txt', 'notepad', 'Education.txt - Notepad', '📝', getEducationTxt())} 
+          id="skills-txt" label="Skills.txt" icon={<img src={notepadPng} style={{width: 32, height: 32, pointerEvents: 'none'}} alt="Notepad" />} 
+          onDoubleClick={() => openWindow('skills-txt', 'notepad', 'Skills.txt - Notepad', <img src={notepadPng} style={{width:16, height:16}} alt="" />, getSkillsTxt())} 
         />
         <DesktopIcon 
-          id="certs-txt" label="Certifications.txt" icon="📝" 
-          onDoubleClick={() => openWindow('certs-txt', 'notepad', 'Certifications.txt - Notepad', '📝', getCertsTxt())} 
+          id="edu-txt" label="Education.txt" icon={<img src={notepadPng} style={{width: 32, height: 32, pointerEvents: 'none'}} alt="Notepad" />} 
+          onDoubleClick={() => openWindow('edu-txt', 'notepad', 'Education.txt - Notepad', <img src={notepadPng} style={{width:16, height:16}} alt="" />, getEducationTxt())} 
+        />
+        <DesktopIcon 
+          id="certs-txt" label="Certifications.txt" icon={<img src={notepadPng} style={{width: 32, height: 32, pointerEvents: 'none'}} alt="Notepad" />} 
+          onDoubleClick={() => openWindow('certs-txt', 'notepad', 'Certifications.txt - Notepad', <img src={notepadPng} style={{width:16, height:16}} alt="" />, getCertsTxt())} 
         />
         <DesktopIcon 
           id="dave-exe" label="DangerousDave.exe" icon="👾" 

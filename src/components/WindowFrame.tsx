@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 interface WindowFrameProps {
   id: string;
   title: string;
-  icon?: string;
+  icon?: string | React.ReactNode;
   onClose: (id: string) => void;
   onFocus: (id: string) => void;
   zIndex: number;

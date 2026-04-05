@@ -3,7 +3,7 @@ import React from 'react';
 interface DesktopIconProps {
   id: string;
   label: string;
-  icon: string; // Emoji for simplicity or SVG
+  icon: string | React.ReactNode; 
   onDoubleClick: (id: string) => void;
 }
 
