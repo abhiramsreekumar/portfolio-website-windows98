@@ -57,6 +57,20 @@ export const DesktopWallpaper: React.FC = () => {
         }}>
           DevOps Engineer
         </h2>
+        {isMobile && (
+          <p style={{
+            fontFamily: 'system-ui, sans-serif',
+            fontSize: '0.65rem',
+            color: '#a0a8b0',
+            marginTop: '8px',
+            marginBottom: 0,
+            textAlign: 'right',
+            textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
+            opacity: 0.8
+          }}>
+            This website is best viewed from desktop devices
+          </p>
+        )}
       </div>
     </div>
   );
