@@ -2,7 +2,7 @@ export const resumeData = {
   about: {
     name: "Abhiram Sreekumar",
     title: "DevOps Engineer",
-    location: "Kayamkulam, KL",
+    location: "Thiruvananthapuram, KL",
     email: "abhiram@randomsasi.in",
     website: "abhiram.randomsasi.in",
     linkedin: "linkedin.com/in/abhiramrs",
