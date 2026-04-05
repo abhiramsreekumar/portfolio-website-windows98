@@ -8,6 +8,7 @@ import { InternetExplorer } from './Programs/InternetExplorer';
 import { DangerousDaveApp } from './Programs/DangerousDaveApp';
 import { AboutSystem } from './Programs/AboutSystem';
 import { ShutDownDialog } from './ShutDownDialog';
+import { ShutDownSequence } from './ShutDownSequence';
 import { resumeData } from '../data/resume';
 import notepadPng from '../assets/notepad-5.png';
 import pdfPng from '../assets/ie-pdf.png';
@@ -27,15 +28,11 @@ export const Desktop: React.FC = () => {
   const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
   const [highestZIndex, setHighestZIndex] = useState(10);
   const [isShutDownOpen, setIsShutDownOpen] = useState(false);
+  const [shutDownAction, setShutDownAction] = useState<'shutdown' | 'restart' | null>(null);
 
   const handleShutDownConfirm = (action: 'shutdown' | 'restart') => {
     setIsShutDownOpen(false);
-    if (action === 'shutdown') {
-      alert("It is now safe to turn off your device. Please close the browser tab.");
-      window.close();
-    } else if (action === 'restart') {
-      window.location.reload();
-    }
+    setShutDownAction(action);
   };
 
   const openWindow = (id: string, type: 'pdf' | 'notepad' | 'game' | 'about', title: string, icon: string | React.ReactNode, data?: any) => {
@@ -181,6 +178,9 @@ export const Desktop: React.FC = () => {
           onConfirm={handleShutDownConfirm}
         />
       )}
+
+      {/* CRT Animation Sequence Overlay */}
+      {shutDownAction && <ShutDownSequence action={shutDownAction} />}
     </div>
   );
 };
