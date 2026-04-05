@@ -158,7 +158,7 @@ export const Desktop: React.FC = () => {
         >
           {w.type === 'pdf' && <InternetExplorer />}
           {w.type === 'notepad' && <Notepad content={w.data} />}
-          {w.type === 'game' && <DangerousDaveApp />}
+          {w.type === 'game' && <DangerousDaveApp onClose={() => closeWindow(w.id)} />}
           {w.type === 'about' && <AboutSystem />}
         </WindowFrame>
       ))}

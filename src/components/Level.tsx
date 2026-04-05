@@ -1,5 +1,7 @@
 import React from 'react';
 import { LevelData } from '../data/levels';
+import fireImg from '../assets/fire.png';
+import waterImg from '../assets/water.png';
 
 interface LevelProps {
   levelData: LevelData;
@@ -54,12 +56,10 @@ export const Level: React.FC<LevelProps> = ({ levelData }) => {
           bottom: `${h.bottom}px`,
           width: `${h.width}px`,
           height: `${h.height}px`,
-          backgroundColor: h.type === 'fire' ? 'var(--ega-light-red)' : 'var(--ega-blue)',
-          borderTop: h.type === 'fire' ? '4px dashed var(--ega-yellow)' : '4px dashed var(--ega-light-cyan)',
-          opacity: 0.9,
-        }}>
-          {h.type === 'fire' ? <span style={{color:'var(--ega-yellow)', fontSize:'10px'}}>FIRE!</span> : ''}
-        </div>
+          backgroundImage: `url(${h.type === 'fire' ? fireImg : waterImg})`,
+          backgroundRepeat: 'repeat',
+          backgroundSize: 'auto 100%',
+        }} />
       ))}
 
       {/* The Door */}
