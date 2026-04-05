@@ -68,7 +68,8 @@ export const DesktopWallpaper: React.FC = () => {
             textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
             opacity: 0.8
           }}>
-            This website is best viewed from desktop devices
+            This website is best viewed from desktop devices<br></br>
+            Double click on the icons to open them
           </p>
         )}
       </div>
