@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Header } from '../Header';
 import { Level } from '../Level';
 import { Dave } from '../Dave';
@@ -18,6 +18,24 @@ export const DangerousDaveApp: React.FC = () => {
   const [showContent, setShowContent] = useState(true);
   const [isDeadDialog, setIsDeadDialog] = useState(false);
   
+  // Responsive aspect scaling
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (containerRef.current) {
+        const { clientWidth, clientHeight } = containerRef.current;
+        const scaleX = clientWidth / 1000;
+        const scaleY = clientHeight / 600;
+        setScale(Math.min(scaleX, scaleY));
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Mobile detection
   const [isTouchDevice] = useState('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
@@ -192,31 +210,33 @@ export const DangerousDaveApp: React.FC = () => {
   });
 
   return (
-    <div className="game-container crt" style={{ position: 'relative', width: '100%', height: '100%' }}>
-      <Header 
-        score={score} 
-        level={levelIndex + 1} 
-        daves={3} 
-        gun={levelIndex > 0} 
-        soundEnabled={soundEnabled} 
-        onToggleSound={handleToggleSound} 
-      />
-      
-      <Level levelData={currentLevel} />
-      
-      <Dave 
-        x={player.x} 
-        bottom={player.bottom} 
-        isMoving={player.vx !== 0 || !player.isGrounded} 
-        facingRight={player.facingRight} 
-        isDead={player.isDead}
-      />
-      
-      <div className="content-layer">
-        {renderContent()}
+    <div ref={containerRef} style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', backgroundColor: 'var(--ega-black)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="game-container crt" style={{ position: 'relative', width: '1000px', height: '600px', transform: `scale(${scale})`, transformOrigin: 'center', flexShrink: 0 }}>
+        <Header 
+          score={score} 
+          level={levelIndex + 1} 
+          daves={3} 
+          gun={levelIndex > 0} 
+          soundEnabled={soundEnabled} 
+          onToggleSound={handleToggleSound} 
+        />
+        
+        <Level levelData={currentLevel} />
+        
+        <Dave 
+          x={player.x} 
+          bottom={player.bottom} 
+          isMoving={player.vx !== 0 || !player.isGrounded} 
+          facingRight={player.facingRight} 
+          isDead={player.isDead}
+        />
+        
+        <div className="content-layer">
+          {renderContent()}
+        </div>
       </div>
 
-      {/* Mobile Controls Overlay */}
+      {/* Mobile Controls Overlay (Unscaled) */}
       {isTouchDevice && !showContent && !isDeadDialog && (
         <div style={{
           position: 'absolute',

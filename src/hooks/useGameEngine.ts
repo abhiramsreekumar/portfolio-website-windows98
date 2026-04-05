@@ -109,7 +109,7 @@ export function useGameEngine(
 
         // X world bounds clamp
         if (nextX < 0) nextX = 0;
-        if (nextX > window.innerWidth - playerWidth) nextX = window.innerWidth - playerWidth;
+        if (nextX > 1000 - playerWidth) nextX = 1000 - playerWidth;
 
         // Collision detection AABB
         isGrounded = false;
