@@ -1,15 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import startIcon from '../assets/start.png';
+import notepadPng from '../assets/notepad-5.png';
+import pdfPng from '../assets/ie-pdf.png';
+import aboutPng from '../assets/about-system.png';
+import shutDownPng from '../assets/shut_down_normal-4.png';
+import explorerPng from '../assets/ie-explorer.png';
 import { resumeData } from '../data/resume';
 
 interface TaskbarProps {
-  openWindows: { id: string; title: string; icon?: string }[];
+  openWindows: { id: string; title: string; icon?: string | React.ReactNode }[];
   activeWindowId: string | null;
   onWindowClick: (id: string) => void;
-  onStartMenuAction: (id: string, type: 'pdf' | 'notepad' | 'game' | 'about', title: string, icon: string, data?: any) => void;
+  onStartMenuAction: (id: string, type: 'pdf' | 'notepad' | 'game' | 'about', title: string, icon: string | React.ReactNode, data?: any) => void;
+  onShutDown: () => void;
 }
 
-export const Taskbar: React.FC<TaskbarProps> = ({ openWindows, activeWindowId, onWindowClick, onStartMenuAction }) => {
+export const Taskbar: React.FC<TaskbarProps> = ({ openWindows, activeWindowId, onWindowClick, onStartMenuAction, onShutDown }) => {
   const [time, setTime] = useState(new Date());
   const [isStartOpen, setIsStartOpen] = useState(false);
   const startMenuRef = useRef<HTMLDivElement>(null);
@@ -33,7 +39,7 @@ export const Taskbar: React.FC<TaskbarProps> = ({ openWindows, activeWindowId, o
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isStartOpen]);
 
-  const handleStartApp = (id: string, type: 'pdf' | 'notepad' | 'game' | 'about', title: string, icon: string, data?: any) => {
+  const handleStartApp = (id: string, type: 'pdf' | 'notepad' | 'game' | 'about', title: string, icon: string | React.ReactNode, data?: any) => {
     setIsStartOpen(false);
     onStartMenuAction(id, type, title, icon, data);
   };
@@ -73,52 +79,59 @@ export const Taskbar: React.FC<TaskbarProps> = ({ openWindows, activeWindowId, o
           </div>
           <div style={{ flex: 1, padding: '2px', display: 'flex', flexDirection: 'column' }}>
              <button 
-               onClick={() => handleStartApp('resume-pdf', 'pdf', 'Internet Explorer - Resume', '🌐')}
-               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
-               🌐 Resume
+               onClick={() => handleStartApp('resume-pdf', 'pdf', 'Internet Explorer - Resume', <img src={pdfPng} style={{width:16,height:16}} />)}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+               <img src={pdfPng} style={{ width: 24, height: 24 }} alt="" /> Resume
              </button>
              <button 
                onClick={() => handleStartApp('dave-exe', 'game', 'Dangerous Dave Engine', '👾')}
-               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
-               👾 Dangerous Dave
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+               <span style={{ fontSize: '20px', width: '24px', textAlign: 'center' }}>👾</span> Dangerous Dave
              </button>
              <button 
-               onClick={() => handleStartApp('exp-txt', 'notepad', 'Experience.txt - Notepad', '📝')}
-               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
-               📝 Experience
+               onClick={() => handleStartApp('exp-txt', 'notepad', 'Experience.txt - Notepad', <img src={notepadPng} style={{width:16,height:16}} />)}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+               <img src={notepadPng} style={{ width: 24, height: 24 }} alt="" /> Experience
              </button>
              <button 
-               onClick={() => handleStartApp('skills-txt', 'notepad', 'Skills.txt - Notepad', '📝')}
-               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
-               📝 Skills
+               onClick={() => handleStartApp('skills-txt', 'notepad', 'Skills.txt - Notepad', <img src={notepadPng} style={{width:16,height:16}} />)}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+               <img src={notepadPng} style={{ width: 24, height: 24 }} alt="" /> Skills
              </button>
              <button 
-               onClick={() => handleStartApp('edu-txt', 'notepad', 'Education.txt - Notepad', '📝')}
-               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
-               📝 Education
+               onClick={() => handleStartApp('edu-txt', 'notepad', 'Education.txt - Notepad', <img src={notepadPng} style={{width:16,height:16}} />)}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+               <img src={notepadPng} style={{ width: 24, height: 24 }} alt="" /> Education
              </button>
              <button 
-               onClick={() => handleStartApp('certs-txt', 'notepad', 'Certifications.txt - Notepad', '📝')}
-               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
-               📝 Certifications
+               onClick={() => handleStartApp('certs-txt', 'notepad', 'Certifications.txt - Notepad', <img src={notepadPng} style={{width:16,height:16}} />)}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+               <img src={notepadPng} style={{ width: 24, height: 24 }} alt="" /> Certifications
              </button>
              <button 
                onClick={() => window.open(`https://${resumeData.about.linkedin}`, '_blank')}
-               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
-               🌐 LinkedIn
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+               <img src={explorerPng} style={{ width: 24, height: 24 }} alt="" /> LinkedIn
              </button>
              <button 
                onClick={() => window.open(`https://${resumeData.about.github}`, '_blank')}
-               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
-               🌐 GitHub
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+               <img src={explorerPng} style={{ width: 24, height: 24 }} alt="" /> GitHub
              </button>
              <button 
-               onClick={() => handleStartApp('about-sys', 'about', 'System Properties', 'ℹ️')}
-               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer' }}>
-               ℹ️ About System
+               onClick={() => handleStartApp('about-sys', 'about', 'System Properties', <img src={aboutPng} style={{width:16,height:16}} />)}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+               <img src={aboutPng} style={{ width: 24, height: 24 }} alt="" /> About System
              </button>
              <hr style={{ width: '90%', borderTop: '1px solid #808080', borderBottom: '1px solid #FFFFFF' }} />
-             <div style={{ padding: '5px 10px', color: '#808080' }}>Shut Down...</div>
+             <button 
+               onClick={() => {
+                 setIsStartOpen(false);
+                 onShutDown();
+               }}
+               style={{ border: 'none', background: 'transparent', textAlign: 'left', padding: '5px 10px', width: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', color: '#000' }}>
+               <img src={shutDownPng} style={{ width: 24, height: 24 }} alt="" /> Shut Down...
+             </button>
           </div>
         </div>
       )}
