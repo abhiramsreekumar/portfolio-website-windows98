@@ -101,6 +101,8 @@ export const DangerousDaveApp: React.FC = () => {
   const BackgroundContent = () => {
     const currentSection = SECTIONS[levelIndex];
 
+    const isProjects = currentSection === 'PROJECTS';
+
     const containerStyle: React.CSSProperties = {
       position: 'absolute',
       top: '40px', left: '20px', right: '20px', bottom: '80px',
@@ -111,10 +113,11 @@ export const DangerousDaveApp: React.FC = () => {
       pointerEvents: 'none',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      textAlign: 'center',
-      paddingTop: '40px'
+      justifyContent: isProjects ? 'flex-end' : 'flex-start',
+      alignItems: isProjects ? 'flex-end' : 'center',
+      textAlign: isProjects ? 'right' : 'center',
+      paddingTop: isProjects ? '0px' : '40px',
+      paddingBottom: isProjects ? '20px' : '0px'
     };
 
     if (currentSection === 'ABOUT') {
@@ -147,12 +150,12 @@ export const DangerousDaveApp: React.FC = () => {
     if (currentSection === 'PROJECTS') {
       return (
         <div style={containerStyle}>
-          <h1 style={{ fontSize: '64px', color: 'var(--ega-light-magenta)', margin: '0 0 30px 0' }}>PROJECTS</h1>
-          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <h1 style={{ fontSize: '64px', color: 'var(--ega-light-magenta)', margin: '0 0 20px 0' }}>PROJECTS</h1>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
             {resumeData.projects.slice(0, 3).map((proj, idx) => (
-              <div key={idx} style={{ width: '250px', border: '2px dashed var(--ega-light-magenta)', backgroundColor: 'rgba(0,0,0,0.5)', padding: '15px' }}>
-                <h3 style={{ fontSize: '20px', color: 'var(--ega-white)', margin: '0 0 10px 0' }}>{proj.name}</h3>
-                <p style={{ fontSize: '14px', margin: '0', color: 'var(--ega-light-cyan)' }}>{proj.description}</p>
+              <div key={idx} style={{ width: '220px', border: '2px dashed var(--ega-light-magenta)', backgroundColor: 'rgba(0,0,0,0.5)', padding: '10px' }}>
+                <h3 style={{ fontSize: '18px', color: 'var(--ega-white)', margin: '0 0 5px 0' }}>{proj.name}</h3>
+                <p style={{ fontSize: '12px', margin: '0', color: 'var(--ega-light-cyan)' }}>{proj.description}</p>
               </div>
             ))}
           </div>

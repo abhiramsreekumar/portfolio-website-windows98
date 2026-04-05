@@ -62,11 +62,12 @@ export const gameLevels: LevelData[] = [
       { x: 300, bottom: FLOOR_HEIGHT + 100, width: 40, height: 20 },
       { x: 450, bottom: FLOOR_HEIGHT + 160, width: 40, height: 20 },
       { x: 600, bottom: FLOOR_HEIGHT + 220, width: 40, height: 20 },
+      { x: 720, bottom: FLOOR_HEIGHT + 280, width: 80, height: 20 },
     ],
     hazards: [
       { type: 'fire', x: 200, bottom: FLOOR_HEIGHT, width: 400, height: 25 }
     ],
-    door: { x: 800, bottom: FLOOR_HEIGHT + 220, width: 40, height: 60 }
+    door: { x: 740, bottom: FLOOR_HEIGHT + 280, width: 40, height: 60 }
   },
   {
     id: 4,
