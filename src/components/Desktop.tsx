@@ -121,11 +121,11 @@ export const Desktop: React.FC = () => {
           id="resume-pdf" label="Resume" icon={<img src={pdfPng} style={{width: 32, height: 32, pointerEvents: 'none'}} alt="Resume" />} 
           onDoubleClick={() => openWindow('resume-pdf', 'pdf', 'Internet Explorer - Resume', <img src={pdfPng} style={{width:16, height:16}} alt="" />)} 
         />
-        {/* <DesktopIcon 
+        <DesktopIcon 
           id="exp-txt" label="Experience.txt" icon={<img src={notepadPng} style={{width: 32, height: 32, pointerEvents: 'none'}} alt="Notepad" />} 
           onDoubleClick={() => openWindow('exp-txt', 'notepad', 'Experience.txt - Notepad', <img src={notepadPng} style={{width:16, height:16}} alt="" />, getExperienceTxt())} 
         />
-        <DesktopIcon 
+        {/* <DesktopIcon 
           id="skills-txt" label="Skills.txt" icon={<img src={notepadPng} style={{width: 32, height: 32, pointerEvents: 'none'}} alt="Notepad" />} 
           onDoubleClick={() => openWindow('skills-txt', 'notepad', 'Skills.txt - Notepad', <img src={notepadPng} style={{width:16, height:16}} alt="" />, getSkillsTxt())} 
         />
