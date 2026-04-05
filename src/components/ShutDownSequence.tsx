@@ -102,7 +102,7 @@ export const ShutDownSequence: React.FC<ShutDownSequenceProps> = ({ action }) =>
         color: '#FFFFFF', fontFamily: "monospace"
       }}>
          <h1 style={{ marginBottom: '40px', color: '#00FF00', fontSize: 'clamp(20px, 5vw, 40px)', textAlign: 'center' }}>
-           Thank you for using
+           Hope You Liked the Windows 98 Portfolio Site, Thank you
          </h1>
          <button 
            onClick={() => window.location.reload()}
@@ -118,7 +118,7 @@ export const ShutDownSequence: React.FC<ShutDownSequenceProps> = ({ action }) =>
              fontFamily: "'MS Sans Serif', Tahoma, sans-serif"
            }}
          >
-           Go to Home
+           Go back Home
          </button>
       </div>
     );
