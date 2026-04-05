@@ -18,3 +18,6 @@ This repository contains the source code for a fully functional, nostalgia-drive
 - **Engine**: Custom `requestAnimationFrame` 60fps Game Loop & AABB Collision Detection
 - **Audio**: Web Audio API (8-bit Synthesized Audio)
 - **Infrastructure**: AWS S3, AWS CloudFront, GitHub Actions
+
+## Thanks to
+- **Icons From**: https://win98icons.alexmeub.com/
