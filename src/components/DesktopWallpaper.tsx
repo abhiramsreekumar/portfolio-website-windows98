@@ -3,13 +3,15 @@ import devopsLogo from '../assets/devops.png';
 import bg98 from '../assets/98.png';
 
 export const DesktopWallpaper: React.FC = () => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
   return (
     <div style={{
       position: 'absolute',
       top: 0, left: 0, width: '100%', height: '100%',
       backgroundImage: `url(${bg98})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
+      backgroundSize: isMobile ? '400%' : 'cover',
+      backgroundPosition: isMobile ? '20% 20%' : 'center',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
@@ -17,7 +19,12 @@ export const DesktopWallpaper: React.FC = () => {
       zIndex: 0,
     }}>
       
-      <img src={devopsLogo} alt="DevOps" style={{ width: '500px', height: '300px', opacity: 0.7, marginBottom: '20px' }} />
+      <img src={devopsLogo} alt="DevOps" style={{ 
+        width: isMobile ? '80vw' : '500px', 
+        height: isMobile ? 'auto' : '300px', 
+        opacity: 0.7, 
+        marginBottom: isMobile ? '100px' : '20px' 
+      }} />
 
       <div style={{
         position: 'absolute',
