@@ -54,6 +54,7 @@ export function useGameEngine(
   }, []);
 
   const resetPlayer = () => {
+    keys.current = {};
     setPlayer({
       x: initialX,
       bottom: initialBottom,
