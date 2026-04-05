@@ -77,7 +77,7 @@ export const Desktop: React.FC = () => {
   };
 
   return (
-    <div style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden' }}>
+    <div style={{ position: 'relative', width: '100vw', height: '100dvh', overflow: 'hidden' }}>
       <DesktopWallpaper />
       
       {/* Desktop Icons Grid */}
@@ -89,7 +89,7 @@ export const Desktop: React.FC = () => {
         gap: '15px',
         padding: '20px',
         flexWrap: 'wrap',
-        maxHeight: 'calc(100vh - 40px)', // Leave space for taskbar
+        maxHeight: 'calc(100dvh - 40px)', // Leave space for taskbar
         alignContent: 'flex-start'
       }}>
         <DesktopIcon 

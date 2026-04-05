@@ -19,29 +19,38 @@ export const DesktopWallpaper: React.FC = () => {
       
       <img src={devopsLogo} alt="DevOps" style={{ width: '500px', height: '300px', opacity: 0.7, marginBottom: '20px' }} />
 
-      <h1 style={{
-        fontFamily: 'system-ui, sans-serif',
-        fontSize: 'clamp(2rem, 5vw, 4rem)',
-        color: '#d0d8e0',
-        margin: 0,
-        textTransform: 'uppercase',
-        letterSpacing: '0.1em',
-        textAlign: 'center',
-        padding: '0 10px'
+      <div style={{
+        position: 'absolute',
+        bottom: '50px',
+        right: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-end'
       }}>
-        Abhiram Sreekumar
-      </h1>
-      <h2 style={{
-        fontFamily: 'system-ui, sans-serif',
-        fontSize: 'clamp(1rem, 3vw, 2rem)',
-        color: '#b0b8c0',
-        margin: 0,
-        letterSpacing: '0.2em',
-        textAlign: 'center',
-        padding: '0 10px'
-      }}>
-        DevOps Engineer
-      </h2>
+        <h1 style={{
+          fontFamily: 'system-ui, sans-serif',
+          fontSize: 'clamp(1.5rem, 4vw, 3rem)',
+          color: '#d0d8e0',
+          margin: 0,
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+          textAlign: 'right',
+          textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+        }}>
+          Abhiram Sreekumar
+        </h1>
+        <h2 style={{
+          fontFamily: 'system-ui, sans-serif',
+          fontSize: 'clamp(0.8rem, 2vw, 1.5rem)',
+          color: '#b0b8c0',
+          margin: 0,
+          letterSpacing: '0.2em',
+          textAlign: 'right',
+          textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
+        }}>
+          DevOps Engineer
+        </h2>
+      </div>
     </div>
   );
 };
